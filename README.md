@@ -1,7 +1,7 @@
 
 ## NeoNano: Uhh mostly a joke but also an editor (soon!)
 
-![Demo Video](demo.mp4)
+![Demo Video](demo.gif)
 
 ### TODO List
 
