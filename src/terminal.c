@@ -11,7 +11,7 @@ void term_init(void) {
     exit(-1);
   }
  
-  buffer_init(&terminal.buffer, 256*256);
+  buffer_init(&terminal.buffer, 256);
 }
 
 void term_destroy(void) {
@@ -83,7 +83,7 @@ void term_flush(void) {
   term_write("\r");
   write(STDOUT_FILENO, terminal.buffer.buffer, terminal.buffer.length);
   buffer_destroy(&terminal.buffer);
-  buffer_init(&terminal.buffer, 256*256);
+  buffer_init(&terminal.buffer, 256);
 }
 
 void term_clear(void) {
@@ -176,4 +176,49 @@ void term_draw_box_thin(size_t x, size_t y, size_t width, size_t height, const c
   term_draw_pixel(x + width - 1, y + height - 1, "╯"); // Bottom right corner
 
   term_draw_pixel(x + 3, y, title);
+}
+
+
+KeyPressed term_read_input(void) {
+  KeyPressed result;
+  result.tag = -1;
+  result.ch = '\0';
+ 
+  char key;
+
+  read(STDOUT_FILENO, &key, 1);
+
+  if (key == '\r') {
+    result.tag = ENTER_KEY;
+  }
+
+  if (key == '\x1b') {
+    char seq[3];
+   
+    while (read(STDIN_FILENO, &seq[0], 1) != 1) continue;
+    while (read(STDIN_FILENO, &seq[1], 1) != 1) continue;
+
+    if (seq[0] == '[') {
+      switch (seq[1]) {
+        case 'A':
+          result.tag = UP_ARROW_KEY;
+          break;
+        case 'B':
+          result.tag = DOWN_ARROW_KEY;
+          break;
+        case 'C':
+          result.tag = LEFT_ARROW_KEY;
+          break;
+        case 'D':
+          result.tag = RIGHT_ARROW_KEY;
+          break;
+        default:
+          break;
+      }
+    }
+  } else if (key == 3) { // Ctrl+C (ASCII value 3)
+    result.tag = CTRL_C_KEY;
+  }
+ 
+  return result;
 }

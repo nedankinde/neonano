@@ -5,5 +5,6 @@ project('neonano', 'c',
 executable('neonano',
            'neonano.c',
            'src/terminal.c',
+           'src/tui.c',
            include_directories: 'include',
            install : true)

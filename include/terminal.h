@@ -7,6 +7,21 @@
 #include <unistd.h>
 #include <sys/ioctl.h>
 
+enum KEY {
+  LEFT_ARROW_KEY,
+  RIGHT_ARROW_KEY,
+  UP_ARROW_KEY,
+  DOWN_ARROW_KEY,
+  CHARACTER_KEY,
+  CTRL_C_KEY,
+  ENTER_KEY,
+};
+
+typedef struct {
+  enum KEY tag;
+  char ch;
+} KeyPressed;
+
 typedef struct {
   // Probably going to be the only time I would want a dynamic array so I will not implement one :^)
   const char *error_log[256];
@@ -42,5 +57,6 @@ void term_show_cursor(void);
 void term_move_cursor(size_t x, size_t y);
 void term_raw_mode(void);
 void term_size(size_t *width, size_t *height);
+KeyPressed term_read_input(void);
 
 #endif // TERMINAL_H_
