@@ -63,7 +63,7 @@ void term_error(const char *message) {
   if (error_count < 256) {
     terminal.error_log[error_count++] = message;
   } else {
-    printf("Too many errors... quitting!\n");
+    printf("Too many errors... quitting!!\n");
     exit(-1);
   }
 }
