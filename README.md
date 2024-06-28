@@ -8,3 +8,5 @@
 - [ ] Input Handling
 - [x] Open Emacs (completed)
 - [ ] Create necessary TUI components
+- [ ] Plugin Support ?
+- [ ] LSP Support (that'd be funny) ?
