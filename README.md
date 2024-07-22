@@ -10,3 +10,4 @@
 - [ ] Create necessary TUI components
 - [ ] Plugin Support ?
 - [ ] LSP Support (that'd be funny) ?
+- [x] Put on pause because bored
